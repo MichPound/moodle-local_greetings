@@ -18,7 +18,6 @@
  * Form extension for greeting messages.
  *
  * @package     local_greetings
- * @category    string
  * @copyright   2022 Michael Pound <michael@brickfieldlabs.ie>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
