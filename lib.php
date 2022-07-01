@@ -24,7 +24,7 @@
  */
 
 /**
- * This function extends the flat navigation
+ * This function extends the flat navigation.
  *
  * @param global_navigation $root The navigation to extend
  */
@@ -43,7 +43,7 @@ function local_greetings_extend_navigation(global_navigation $root) {
 }
 
 /**
- * This function extends the front page navigation
+ * This function extends the front page navigation.
  *
  * @param navigation_node $frontpage The navigation node to extend
  */
@@ -59,7 +59,7 @@ function local_greetings_extend_navigation_frontpage(navigation_node $frontpage)
 }
 
 /**
- * This function determines output based on user location
+ * This function determines output based on user location.
  *
  * @param USER $user The current user
  */

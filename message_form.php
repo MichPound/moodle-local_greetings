@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Disply greetings plugin page.
+ * Form extension for greeting messages.
  *
  * @package     local_greetings
  * @category    string
@@ -23,36 +23,29 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once(__DIR__ . '/../../config.php');
-require_once(__DIR__ . '/lib.php');
-require_once(__DIR__ . '/message_form.php');
+defined('MOODLE_INTERNAL') || die();
 
-require_login();
+require_once($CFG->libdir . '/formslib.php');
 
-$context = context_system::instance();
+/**
+ * Class greeting message form.
+ *
+ * @package    local_greetings
+ * @copyright  2022 Michael Pound <michael@brickfieldlabs.ie>
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class local_greetings_message_form extends moodleform {
 
-$PAGE->set_context($context);
-$PAGE->set_url(new moodle_url('/local/greetings/index.php'));
-$PAGE->set_pagelayout('standard');
-$PAGE->set_heading(get_string('pluginname', 'local_greetings'));
-$PAGE->set_title($SITE->fullname);
+    /**
+     * Define the form.
+     */
+    public function definition() {
+        $mform = $this->_form;
 
-$messageform = new local_greetings_message_form();
+        $mform->addElement('textarea', 'message', get_string('yourmessage', 'local_greetings'));
+        $mform->setType('message', PARAM_TEXT);
 
-echo $OUTPUT->header();
-
-if (isloggedin()) {
-    echo local_greetings_get_greeting($USER);
-} else {
-    echo get_string('greetinguser', 'local_greetings');
+        $submitlabel = get_string('submit');
+        $mform->addElement('submit', 'submitmessage', $submitlabel);
+    }
 }
-
-$messageform->display();
-
-if ($data = $messageform->get_data()) {
-    $message = required_param('message', PARAM_TEXT);
-
-    echo $OUTPUT->heading($message, 4);
-}
-
-echo $OUTPUT->footer();
