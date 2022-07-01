@@ -15,20 +15,60 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
+ * Library functions for local greetings plugin.
+ *
  * @package     local_greetings
  * @category    string
  * @copyright   2022 Michael Pound <michael@brickfieldlabs.ie>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+/**
+ * This function extends the flat navigation
+ *
+ * @param global_navigation $root The navigation to extend
+ */
+function local_greetings_extend_navigation(global_navigation $root) {
+    $node = navigation_node::create(
+        get_string('pluginname', 'local_greetings'),
+        new moodle_url('/local/greetings/index.php'),
+        navigation_node::TYPE_CUSTOM,
+        null,
+        null,
+        new pix_icon('t/message', '')
+    );
 
+    $node->showinflatnavigation = true;
+    $root->add_node($node);
+}
+
+/**
+ * This function extends the front page navigation
+ *
+ * @param navigation_node $frontpage The navigation node to extend
+ */
+function local_greetings_extend_navigation_frontpage(navigation_node $frontpage) {
+    $frontpage->add(
+        get_string('pluginname', 'local_greetings'),
+        new moodle_url('/local/greetings/index.php'),
+        navigation_node::TYPE_CUSTOM,
+        null,
+        null,
+        new pix_icon('t/message', '')
+    );
+}
+
+/**
+ * This function determines output based on user location
+ *
+ * @param USER $user The current user
+ */
 function local_greetings_get_greeting($user) {
     if ($user == null) {
         return get_string('greetinguser', 'local_greetings');
     }
 
-    $country = $user -> country;
+    $country = $user->country;
 
     switch ($country) {
         case 'AU' :

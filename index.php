@@ -15,24 +15,28 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
+ * Disply greetings plugin page.
+ *
  * @package     local_greetings
  * @category    string
  * @copyright   2022 Michael Pound <michael@brickfieldlabs.ie>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('../../config.php');
-require_once($CFG -> dirroot . '/local/greetings/lib.php');
+require_once(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/lib.php');
+
+require_login();
 
 $context = context_system::instance();
 
-$PAGE -> set_context($context);
-$PAGE -> set_url(new moodle_url('/local/greetings/index.php'));
-$PAGE -> set_pagelayout('standard');
-$PAGE -> set_heading(get_string('pluginname', 'local_greetings'));
-$PAGE -> set_title($SITE -> fullname);
+$PAGE->set_context($context);
+$PAGE->set_url(new moodle_url('/local/greetings/index.php'));
+$PAGE->set_pagelayout('standard');
+$PAGE->set_heading(get_string('pluginname', 'local_greetings'));
+$PAGE->set_title($SITE->fullname);
 
-echo $OUTPUT -> header();
+echo $OUTPUT->header();
 
 if (isloggedin()) {
     echo local_greetings_get_greeting($USER);
@@ -40,4 +44,4 @@ if (isloggedin()) {
     echo get_string('greetinguser', 'local_greetings');
 }
 
-echo $OUTPUT -> footer();
+echo $OUTPUT->footer();
