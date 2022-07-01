@@ -22,6 +22,7 @@
  */
 
 require_once('../../config.php');
+require_once($CFG -> dirroot . '/local/greetings/lib.php');
 
 $context = context_system::instance();
 
@@ -34,9 +35,9 @@ $PAGE -> set_title($SITE -> fullname);
 echo $OUTPUT -> header();
 
 if (isloggedin()) {
-    echo '<h2> Greetings, ' . fullname($USER) . '</h2>';
+    echo local_greetings_get_greeting($USER);
 } else {
-    echo '<h2> Greetings, user </h2>';
+    echo get_string('greetinguser', 'local_greetings');
 }
 
 echo $OUTPUT -> footer();
