@@ -38,4 +38,6 @@ $string['greetinguseres'] = 'Hola {$a}!';
 $string['greetinguserfj'] = 'Bula {$a}!';
 $string['greetingusernz'] = 'Kia Ora {$a}!';
 $string['postedby'] = 'Posted by {$a}.';
+$string['showinnavigation'] = 'Show in navigation';
+$string['showinnavigationdesc'] = 'When enabled will show link in navigation';
 $string['yourmessage'] = 'Your Message';

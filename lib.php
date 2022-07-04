@@ -38,7 +38,7 @@ function local_greetings_extend_navigation(global_navigation $root) {
             new pix_icon('t/message', '')
         );
 
-        $node->showinflatnavigation = true;
+        $node->showinflatnavigation = get_config('local_greetings', 'showinnavigation');
         $root->add_node($node);
     }
 }
@@ -49,7 +49,7 @@ function local_greetings_extend_navigation(global_navigation $root) {
  * @param navigation_node $frontpage The navigation node to extend
  */
 function local_greetings_extend_navigation_frontpage(navigation_node $frontpage) {
-    if (!isguestuser()) {
+    if (!isguestuser() && get_config('local_greetings', 'showinnavigation')) {
         $frontpage->add(
             get_string('pluginname', 'local_greetings'),
             new moodle_url('/local/greetings/index.php'),
