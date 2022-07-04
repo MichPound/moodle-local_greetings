@@ -28,6 +28,9 @@ defined('MOODLE_INTERNAL') || die();
 $string['pluginname'] = 'Greetings';
 
 $string['greetingloggedinuser'] = 'Greetings {$a}!';
+$string['greetings:deleteanymessage'] = 'Delet a message from the Greetings wall';
+$string['greetings:postmessages'] = 'Post a new message on the Greetings wall';
+$string['greetings:viewmessages'] = 'View messages on the Greetings wall';
 $string['greetinguser'] = 'Greetings User!';
 $string['greetinguserau'] = 'Hello {$a}!';
 $string['greetinguseres'] = 'Hola {$a}!';
