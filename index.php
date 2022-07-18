@@ -56,6 +56,8 @@ if (has_capability('local/greetings:postmessages', $context)) {
 
 $action = optional_param('action', '', PARAM_TEXT);
 
+$PAGE->requires->js_call_amd('local_greetings/modal', 'initialise');
+
 if ($action == 'del') {
     require_sesskey();
     $id = required_param('id', PARAM_TEXT);
@@ -69,6 +71,8 @@ if ($action == 'del') {
         }
 
         $DB->delete_records('local_greetings_messages', $params);
+
+        redirect($PAGE->url);
     }
 }
 
@@ -86,20 +90,33 @@ if (has_capability('local/greetings:viewmessages', $context)) {
     echo $OUTPUT->box_start('card-columns');
 
     foreach ($messages as $m) {
+
         echo html_writer::start_tag('div', array('class' => 'card'));
         echo html_writer::start_tag('div', array('class' => 'card-body'));
+
+        echo html_writer::start_tag('div', array('id' => 'modal_card', 'data-name' => $m->firstname, 'data-message' => $m->message, 'data-date' => $m->timecreated));
         echo html_writer::tag('p', format_text($m->message, FORMAT_PLAIN), array('class' => 'card-text'));
         echo html_writer::tag('p', get_string('postedby', 'local_greetings', $m->firstname), array('class' => 'card-text'));
+        echo html_writer::end_tag('div');
 
         if ((has_capability('local/greetings:deleteownmessage', $context) && $m->userid == $USER->id) ||
             has_capability('local/greetings:deleteanymessage', $context)) {
             echo html_writer::start_tag('p', array('class' => 'card-footer text-center'));
             echo html_writer::link(
                 new moodle_url(
+                    '/local/greetings/edit.php',
+                    array('action' => 'edit', 'id' => $m->id, 'sesskey' => sesskey())
+                ),
+                $OUTPUT->pix_icon('t/editstring', ''),
+                array('role' => 'button', 'id' => 'edit_button', 'aria-label' => get_string('edit'), 'title' => get_string('edit'))
+            );
+            echo html_writer::link(
+                new moodle_url(
                     '/local/greetings/index.php',
                     array('action' => 'del', 'id' => $m->id, 'sesskey' => sesskey())
                 ),
-                $OUTPUT->pix_icon('t/delete', '') . get_string('delete')
+                $OUTPUT->pix_icon('t/delete', ''),
+                array('role' => 'button', 'aria-label' => get_string('delete'), 'title' => get_string('delete'))
             );
             echo html_writer::end_tag('p');
         }
@@ -126,6 +143,8 @@ if ($data = $messageform->get_data()) {
         $record->userid = $USER->id;
 
         $DB->insert_record('local_greetings_messages', $record);
+
+        redirect($PAGE->url);
     }
 }
 
