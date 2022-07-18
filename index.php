@@ -94,7 +94,8 @@ if (has_capability('local/greetings:viewmessages', $context)) {
         echo html_writer::start_tag('div', array('class' => 'card'));
         echo html_writer::start_tag('div', array('class' => 'card-body'));
 
-        echo html_writer::start_tag('div', array('id' => 'modal_card', 'data-name' => $m->firstname, 'data-message' => $m->message, 'data-date' => $m->timecreated));
+        echo html_writer::start_tag('div', array('id' => 'modal_card', 'data-name' => $m->firstname,
+             'data-message' => $m->message, 'data-date' => $m->timecreated));
         echo html_writer::tag('p', format_text($m->message, FORMAT_PLAIN), array('class' => 'card-text'));
         echo html_writer::tag('p', get_string('postedby', 'local_greetings', $m->firstname), array('class' => 'card-text'));
         echo html_writer::end_tag('div');
