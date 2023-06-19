@@ -108,7 +108,7 @@ jobs:
       - name: phpunit
         if: ${{ always() }}
         run: |
-          moodle-plugin-ci phpunit --coverage-clover
+          moodle-plugin-ci phpunit --coverage-text
 
       - name: behat
         if: ${{ always() }}
